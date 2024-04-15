@@ -18,7 +18,7 @@ public:
     ~Board();
 
     int getSize() const;
-    void displayBoard(sf::RenderWindow window) const;
+    void displayBoard(sf::RenderWindow& window) const;
 };
 
 
