@@ -1,0 +1,3 @@
+C:/Users/Uzivatel/Desktop/School/Year 2/C++/CA2/cmake-build-debug/CMakeFiles/CA2.dir
+C:/Users/Uzivatel/Desktop/School/Year 2/C++/CA2/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Uzivatel/Desktop/School/Year 2/C++/CA2/cmake-build-debug/CMakeFiles/rebuild_cache.dir
