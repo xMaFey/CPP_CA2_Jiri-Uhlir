@@ -1,10 +1,17 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 
+#include "Board.h"
+#include "Bug.h"
+
 int main() {
-    sf::RenderWindow window(sf::VideoMode(500,500), "SFML works!");
-    sf::CircleShape shape(250.f);
-    shape.setFillColor(sf::Color::Green);
+    //instance of board class
+    Board board;
+
+    //SFML window
+    sf::RenderWindow window(sf::VideoMode(520, 520), "Bug Board");
+
+    //Main loop
     while(window.isOpen()){
         sf::Event event;
         while(window.pollEvent(event)){
@@ -12,9 +19,16 @@ int main() {
                 window.close();
             }
         }
-        window.clear();
-        window.draw(shape);
+
+        //Window clear
+        window.clear(sf::Color::White);
+
+        //Display bug board
+        board.displayBoard(window);
+
+        //display window contents
         window.display();
     }
+
     return 0;
 }
