@@ -7,33 +7,42 @@ Crawler::Crawler(int id, std::pair<int, int> position, Direction dir, int size)
 
 Crawler::~Crawler(){}
 
-void Crawler::move(){
-    //Check if the way is blocked
-    if(isWayBlocked()){
-        Direction newDirection = static_cast<Direction>(rand() % 4);
-        //Set new direction
-        direction = newDirection;
-    } else{
-        //Move in the current direction
-        switch(direction){
-            case Direction::NORTH:
-                position.second--;
-                break;
-            case Direction::EAST:
-                position.first++;
-                break;
-            case Direction::SOUTH:
-                position.second++;
-                break;
-            case Direction::WEST:
-                position.first--;
-                break;
-        }
+void Crawler::move() {
+    // Move by 1 unit in the current direction
+    switch (direction) {
+        case Direction::NORTH:
+            if (position.second > 0) {
+                position.second--; // Move north if not at the top edge
+            } else {
+                direction = static_cast<Direction>(rand() % 4); // Change direction if at the top edge
+            }
+            break;
+        case Direction::EAST:
+            if (position.first < 9) {
+                position.first++; // Move east if not at the right edge
+            } else {
+                direction = static_cast<Direction>(rand() % 4); // Change direction if at the right edge
+            }
+            break;
+        case Direction::SOUTH:
+            if (position.second < 9) {
+                position.second++; // Move south if not at the bottom edge
+            } else {
+                direction = static_cast<Direction>(rand() % 4); // Change direction if at the bottom edge
+            }
+            break;
+        case Direction::WEST:
+            if (position.first > 0) {
+                position.first--; // Move west if not at the left edge
+            } else {
+                direction = static_cast<Direction>(rand() % 4); // Change direction if at the left edge
+            }
+            break;
     }
-
-    //Record new position in crawlers path history
+    // Record new position in crawler's path history
     path.push_back(position);
 }
+
 
 bool Crawler::isWayBlocked() const {
     int boardSize = getSize();

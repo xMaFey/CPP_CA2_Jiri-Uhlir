@@ -1,59 +1,56 @@
-
 #include "Hopper.h"
+#include "Board.h"
 #include <cstdlib>
 
 Hopper::Hopper(int id, std::pair<int, int> position, Direction dir, int size, int hopLength)
-    : Bug(id, position, dir, size), hopLength(hopLength){}
+        : Bug(id, position, dir, size), hopLength(hopLength) {}
 
-Hopper::~Hopper(){}
+Hopper::~Hopper() {}
 
-void Hopper::move(){
-    //Check if the way is blocked
-    if(isWayBlocked()){
-        Direction newDirection = static_cast<Direction>(rand() % 4);
-        //Set new direction
-        direction = newDirection;
-    } else{
-        //Generates random hop length between 2 and 4
-        int hopDistance = rand() % 3 + 2;
+void Hopper::move() {
+    // Generates random hop length between 2 and 4
+    int hopDistance = rand() % 3 + 2;
 
-        //Try to move hopDistance units in the current direction
-        for(int i = 0; i < hopDistance; i++){
-            switch(direction){
-                case Direction::NORTH:
-                    if(position.second > 0){
-                        position.second--;
-                    }
-                    break;
-                case Direction::EAST:
-                    if(position.first < (getSize() - 1)){
-                        position.first++;
-                    }
-                    break;
-                case Direction::SOUTH:
-                    if(position.second < (getSize() - 1)){
-                        position.second++;
-                    }
-                    break;
-                case Direction::WEST:
-                    if(position.first > 0){
-                        position.first--;
-                    }
-                    break;
-            }
+    switch (direction) {
+        case Direction::NORTH:
+            position.second -= hopDistance;
+            break;
+        case Direction::EAST:
+            position.first += hopDistance;
+            break;
+        case Direction::SOUTH:
+            position.second += hopDistance;
+            break;
+        case Direction::WEST:
+            position.first -= hopDistance;
+            break;
+    }
 
-            //Record new position in hoppers path history
-            path.push_back(position);
+    //Record new position in hopper's path history
+    path.push_back(position);
 
-            //Check if the hopper reached the edge of the board
-            if(position.first == 0 || position.first == (getSize() - 1) || position.second == 0 || position.second == (getSize() - 1)){
-                break; //Stop hopping if reached the edge
-            }
-        }
+    //If the hopper jumps off the board, move it next to the wall and change direction randomly
+    if (position.first < 0) {
+        position.first = 0;
+        direction = static_cast<Direction>(rand() % 4); // Change direction randomly
+    }
+    if (position.first > 9) {
+        position.first = 9;
+        direction = static_cast<Direction>(rand() % 4);
+    }
+    if (position.second < 0) {
+        position.second = 0;
+        direction = static_cast<Direction>(rand() % 4);
+    }
+    if (position.second > 9) {
+        position.second = 9;
+        direction = static_cast<Direction>(rand() % 4);
     }
 }
 
-bool Hopper::isWayBlocked() const{
+
+bool Hopper::isWayBlocked() const {
+    // Hopper can't be blocked as it can jump over obstacles
     return false;
 }
 
