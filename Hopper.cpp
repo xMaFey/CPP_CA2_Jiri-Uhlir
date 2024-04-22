@@ -10,43 +10,46 @@ Hopper::~Hopper() {}
 void Hopper::move() {
     // Generates random hop length between 2 and 4
     int hopDistance = rand() % 3 + 2;
+    std::pair<int, int> newPosition = position; // Store the new position temporarily
 
     switch (direction) {
         case Direction::NORTH:
-            position.second -= hopDistance;
+            newPosition.second -= hopDistance;
             break;
         case Direction::EAST:
-            position.first += hopDistance;
+            newPosition.first += hopDistance;
             break;
         case Direction::SOUTH:
-            position.second += hopDistance;
+            newPosition.second += hopDistance;
             break;
         case Direction::WEST:
-            position.first -= hopDistance;
+            newPosition.first -= hopDistance;
             break;
     }
 
-    //Record new position in hopper's path history
-    path.push_back(position);
+    // Check if the new position is within the boundaries of the board
+    if (newPosition.first >= 0 && newPosition.first < 10 && newPosition.second >= 0 && newPosition.second < 10) {
+        // Record new position in hopper's path history
+        path.push_back(newPosition);
+    }
 
-    //If the hopper jumps off the board, move it next to the wall and change direction randomly
-    if (position.first < 0) {
-        position.first = 0;
-        direction = static_cast<Direction>(rand() % 4); // Change direction randomly
-    }
-    if (position.first > 9) {
-        position.first = 9;
+    // If the hopper jumps off the board, move it next to the wall and change direction randomly
+    if (newPosition.first < 0 || newPosition.first >= 10 || newPosition.second < 0 || newPosition.second >= 10) {
+        // Move next to the wall
+        if (newPosition.first < 0) newPosition.first = 0;
+        if (newPosition.first >= 10) newPosition.first = 9;
+        if (newPosition.second < 0) newPosition.second = 0;
+        if (newPosition.second >= 10) newPosition.second = 9;
+
+        // Change direction randomly
         direction = static_cast<Direction>(rand() % 4);
     }
-    if (position.second < 0) {
-        position.second = 0;
-        direction = static_cast<Direction>(rand() % 4);
-    }
-    if (position.second > 9) {
-        position.second = 9;
-        direction = static_cast<Direction>(rand() % 4);
-    }
+
+    // Update the hopper's position
+    position = newPosition;
 }
+
+
 
 
 bool Hopper::isWayBlocked() const {

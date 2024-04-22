@@ -1,9 +1,36 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include <fstream>
 #include "Board.h"
 #include "Bug.h"
 #include "Crawler.h"
 #include "Hopper.h"
+
+//Function to write bugs life history into a file
+void writeBugLifeHistory(const std::vector<Bug*>& bugs){
+    std::time_t currentTime = std::time(nullptr);
+    std::tm* localTime = std::localtime(&currentTime);
+
+    //Open the output file
+    std::ofstream outFile("C:/Users/Uzivatel/Desktop/School/Year 2/C++/CA2/bugs_life_history_date_time.out");
+    if(!outFile){
+        std::cerr << "Error: Unable to open file for writing." << std::endl;
+        return;
+    }
+
+    outFile << "Bugs Life History (Date and Time): " << std::asctime(localTime) << std::endl;
+
+    //Write the life history of each bug
+    for(const Bug* bug : bugs){
+        outFile << "Bug ID: " << bug -> getID() << ", Path";
+        for(const auto& position : bug -> getPath()){
+            outFile << " (" << position.first << ", " << position.second << ")";
+        }
+        outFile << std::endl;
+    }
+    outFile.close();
+}
+
 
 int main() {
     //instance of board class
@@ -14,6 +41,7 @@ int main() {
 
     //Display the bugs
     board.displayBugs();
+
 
 //    //Ask the user to input a bug ID
 //    std::cout << "Enter bug ID: ";
@@ -68,6 +96,22 @@ int main() {
                 //move bugs
                 for(Bug* bug : board.getBugs()){
                     bug -> move();
+
+                    //display bug details and path history into console
+                    std::cout << "Bug ID: " << bug -> getID() << std::endl;
+                    std::cout << "Type: ";
+                    if(dynamic_cast <const Crawler*>(bug) != nullptr){
+                        std::cout << "Crawler";
+                    } else if(dynamic_cast <const Hopper*>(bug) != nullptr){
+                        std::cout << "Hopper";
+                    }
+                    std::cout << ", Position: (" << bug -> getPosition().first << ", " << bug -> getPosition().second << "), ";
+                    std::cout << "Status: " << (bug -> isAlive() ? "Alive" : "Dead") << std::endl;
+                    std::cout << "Path History: ";
+                    for(const auto& position : bug->getPath()){
+                        std::cout << "(" << position.first << ", " << position.second << ") ";
+                    }
+                    std::cout << std::endl << std::endl;
                 }
             }
         }
@@ -95,6 +139,9 @@ int main() {
         //display window contents
         window.display();
     }
+
+    //Write bug life history into the file
+    writeBugLifeHistory(board.getBugs());
 
     return 0;
 }
