@@ -12,6 +12,8 @@ private:
     const int size = 10;
     //2D grid to represent the bug board
     std::vector<std::vector<Bug*>> grid;
+    //vector to store bugs
+    std::vector<Bug*> bugs;
 
 public:
     Board();
@@ -19,6 +21,9 @@ public:
 
     int getSize() const;
     void displayBoard(sf::RenderWindow& window) const;
+    void addBug(Bug* bug);
+    void populateBugVector();
+    void displayBugs() const;
 };
 
 

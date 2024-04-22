@@ -1,12 +1,17 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
-
 #include "Board.h"
 #include "Bug.h"
 
 int main() {
     //instance of board class
     Board board;
+
+    //Populate the bugs vector
+    board.populateBugVector();
+
+    //Display the bugs
+    board.displayBugs();
 
     //SFML window
     sf::RenderWindow window(sf::VideoMode(520, 520), "Bug Board");

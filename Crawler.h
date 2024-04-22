@@ -1,14 +1,16 @@
-//
-// Created by Uzivatel on 15/04/2024.
-//
 
 #ifndef CA2_CRAWLER_H
 #define CA2_CRAWLER_H
 
+#include "Bug.h"
 
-class Crawler {
+class Crawler : public Bug{
+public:
+    Crawler(int id, std::pair<int, int> position, Direction direction, int size);
+    ~Crawler();
 
+    void move() override;
+    bool isWayBlocked() const override;
 };
-
 
 #endif //CA2_CRAWLER_H

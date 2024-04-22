@@ -73,6 +73,22 @@ build CMakeFiles/CA2.dir/Bug.cpp.obj: CXX_COMPILER__CA2_unscanned_Debug C$:/User
   OBJECT_DIR = CMakeFiles\CA2.dir
   OBJECT_FILE_DIR = CMakeFiles\CA2.dir
 
+build CMakeFiles/CA2.dir/Crawler.cpp.obj: CXX_COMPILER__CA2_unscanned_Debug C$:/Users/Uzivatel/Desktop/School/Year$ 2/C++/CA2/Crawler.cpp || cmake_object_order_depends_target_CA2
+  DEFINES = -DSFML_STATIC
+  DEP_FILE = CMakeFiles\CA2.dir\Crawler.cpp.obj.d
+  FLAGS = -g -fdiagnostics-color=always
+  INCLUDES = -IC:/SFML-2.6.1/include/SFML -isystem C:/SFML-2.6.1/include
+  OBJECT_DIR = CMakeFiles\CA2.dir
+  OBJECT_FILE_DIR = CMakeFiles\CA2.dir
+
+build CMakeFiles/CA2.dir/Hopper.cpp.obj: CXX_COMPILER__CA2_unscanned_Debug C$:/Users/Uzivatel/Desktop/School/Year$ 2/C++/CA2/Hopper.cpp || cmake_object_order_depends_target_CA2
+  DEFINES = -DSFML_STATIC
+  DEP_FILE = CMakeFiles\CA2.dir\Hopper.cpp.obj.d
+  FLAGS = -g -fdiagnostics-color=always
+  INCLUDES = -IC:/SFML-2.6.1/include/SFML -isystem C:/SFML-2.6.1/include
+  OBJECT_DIR = CMakeFiles\CA2.dir
+  OBJECT_FILE_DIR = CMakeFiles\CA2.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target CA2
@@ -81,7 +97,7 @@ build CMakeFiles/CA2.dir/Bug.cpp.obj: CXX_COMPILER__CA2_unscanned_Debug C$:/User
 #############################################
 # Link the executable CA2.exe
 
-build CA2.exe: CXX_EXECUTABLE_LINKER__CA2_Debug CMakeFiles/CA2.dir/main.cpp.obj CMakeFiles/CA2.dir/Board.cpp.obj CMakeFiles/CA2.dir/Bug.cpp.obj | C$:/SFML-2.6.1/lib/libsfml-system-s-d.a C$:/SFML-2.6.1/lib/libsfml-window-s-d.a C$:/SFML-2.6.1/lib/libsfml-graphics-s-d.a C$:/SFML-2.6.1/lib/libsfml-audio-s-d.a C$:/SFML-2.6.1/lib/libsfml-window-s-d.a C$:/SFML-2.6.1/lib/libfreetype.a C$:/SFML-2.6.1/lib/libsfml-system-s-d.a C$:/SFML-2.6.1/lib/libopenal32.a C$:/SFML-2.6.1/lib/libvorbisfile.a C$:/SFML-2.6.1/lib/libvorbisenc.a C$:/SFML-2.6.1/lib/libvorbis.a C$:/SFML-2.6.1/lib/libogg.a C$:/SFML-2.6.1/lib/libFLAC.a
+build CA2.exe: CXX_EXECUTABLE_LINKER__CA2_Debug CMakeFiles/CA2.dir/main.cpp.obj CMakeFiles/CA2.dir/Board.cpp.obj CMakeFiles/CA2.dir/Bug.cpp.obj CMakeFiles/CA2.dir/Crawler.cpp.obj CMakeFiles/CA2.dir/Hopper.cpp.obj | C$:/SFML-2.6.1/lib/libsfml-system-s-d.a C$:/SFML-2.6.1/lib/libsfml-window-s-d.a C$:/SFML-2.6.1/lib/libsfml-graphics-s-d.a C$:/SFML-2.6.1/lib/libsfml-audio-s-d.a C$:/SFML-2.6.1/lib/libsfml-window-s-d.a C$:/SFML-2.6.1/lib/libfreetype.a C$:/SFML-2.6.1/lib/libsfml-system-s-d.a C$:/SFML-2.6.1/lib/libopenal32.a C$:/SFML-2.6.1/lib/libvorbisfile.a C$:/SFML-2.6.1/lib/libvorbisenc.a C$:/SFML-2.6.1/lib/libvorbis.a C$:/SFML-2.6.1/lib/libogg.a C$:/SFML-2.6.1/lib/libFLAC.a
   FLAGS = -g
   LINK_LIBRARIES = C:/SFML-2.6.1/lib/libsfml-system-s-d.a  C:/SFML-2.6.1/lib/libsfml-window-s-d.a  C:/SFML-2.6.1/lib/libsfml-graphics-s-d.a  C:/SFML-2.6.1/lib/libsfml-audio-s-d.a  C:/SFML-2.6.1/lib/libsfml-window-s-d.a  -lOpenGL32  -lgdi32  C:/SFML-2.6.1/lib/libfreetype.a  C:/SFML-2.6.1/lib/libsfml-system-s-d.a  -lwinmm  C:/SFML-2.6.1/lib/libopenal32.a  C:/SFML-2.6.1/lib/libvorbisfile.a  C:/SFML-2.6.1/lib/libvorbisenc.a  C:/SFML-2.6.1/lib/libvorbis.a  C:/SFML-2.6.1/lib/libogg.a  C:/SFML-2.6.1/lib/libFLAC.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\CA2.dir
