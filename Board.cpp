@@ -184,3 +184,7 @@ void Board::displayBugs() const{
         std::cout << "Status: " << (bug -> isAlive() ? "Alive" : "Dead") << std::endl;
     }
 }
+
+const std::vector<Bug*>& Board::getBugs() const{
+    return bugs;
+}
