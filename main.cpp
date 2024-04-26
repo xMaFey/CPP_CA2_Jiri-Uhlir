@@ -6,6 +6,8 @@
 #include "Crawler.h"
 #include "Hopper.h"
 
+void printBoardState(const Board& board);
+
 //Function to write bugs life history into a file
 void writeBugLifeHistory(const std::vector<Bug*>& bugs){
     std::time_t currentTime = std::time(nullptr);
@@ -113,6 +115,8 @@ int main() {
                     }
                     std::cout << std::endl << std::endl;
                 }
+
+                printBoardState(board);
             }
         }
 
@@ -144,4 +148,34 @@ int main() {
     writeBugLifeHistory(board.getBugs());
 
     return 0;
+}
+
+void printBoardState(const Board& board) {
+    const int boardSize = 10;
+
+    // Iterate over each cell on the board
+    for (int y = 0; y < boardSize; ++y) {
+        for (int x = 0; x < boardSize; ++x) {
+            std::cout << "(" << x << "," << y << "): ";
+
+            // Flag to track if the cell is empty
+            bool isEmpty = true;
+
+            // Iterate over bugs to check if any bug is in this cell
+            for (const Bug* bug : board.getBugs()) {
+                std::pair<int, int> bugPosition = bug->getPosition();
+                if (bugPosition.first == x && bugPosition.second == y) {
+                    std::cout << (dynamic_cast<const Crawler*>(bug) != nullptr ? "Crawler " : "Hopper ") << bug->getID() << ", ";
+                    isEmpty = false;
+                }
+            }
+
+            // If the cell is still empty, print "empty"
+            if (isEmpty) {
+                std::cout << "empty";
+            }
+
+            std::cout << std::endl;
+        }
+    }
 }
