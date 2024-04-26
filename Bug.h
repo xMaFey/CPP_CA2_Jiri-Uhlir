@@ -29,7 +29,6 @@ public:
 
     int getID() const;
     std::pair<int, int> getPosition() const;
-    Direction getDirection() const;
     int getSize() const;
     bool isAlive() const;
     const std::list<std::pair<int,int>>& getPath() const;

@@ -6,8 +6,9 @@
 
 class Crawler : public Bug{
 public:
-    Crawler(int id, std::pair<int, int> position, Direction direction, int size);
-    ~Crawler();
+    Crawler(int id, std::pair<int, int> position, Direction direction, int size)
+            : Bug(id, position, direction, size){}
+    ~Crawler() {};
 
     void move() override;
     bool isWayBlocked() const override;

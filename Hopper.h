@@ -9,8 +9,9 @@ private:
     int hopLength;
 
 public:
-    Hopper(int id, std::pair<int, int> position, Direction direction, int size, int hopLength);
-    ~Hopper();
+    Hopper(int id, std::pair<int, int> position, Direction direction, int size, int hopLength)
+            : Bug(id, position, direction, size), hopLength(hopLength) {}
+    ~Hopper() {};
 
     void move() override;
     bool isWayBlocked() const override;

@@ -19,9 +19,9 @@ public:
     Board();
     ~Board();
 
-    int getSize() const;
+
     void displayBoard(sf::RenderWindow& window) const;
-    void addBug(Bug* bug);
+
     void populateBugVector();
     void displayBugs() const;
     const std::vector<Bug*>& getBugs() const;

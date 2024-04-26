@@ -2,7 +2,7 @@
 #include "Bug.h"
 
 Bug::Bug(int id, std::pair<int, int> position, Direction direction, int size)
- : id(id), position(position), direction(direction), size(size), alive(true){}
+        : id(id), position(position), direction(direction), size(size), alive(true){}
 
 Bug::~Bug(){}
 
@@ -12,10 +12,6 @@ int Bug::getID() const{
 
 std::pair<int, int> Bug::getPosition() const{
     return position;
-}
-
-Direction Bug::getDirection() const {
-    return direction;
 }
 
 int Bug::getSize() const {

@@ -132,7 +132,7 @@ int main() {
             }
 
             std::pair<int, int> position = bug -> getPosition();
-            bugShape.setPosition(position.first * 52 + 2, position.second * 52 + 2);
+            bugShape.setPosition(position.first * 52, position.second * 52);
             window.draw(bugShape);
         }
 

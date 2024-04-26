@@ -2,11 +2,6 @@
 #include "Crawler.h"
 #include <cstdlib>
 
-Crawler::Crawler(int id, std::pair<int, int> position, Direction dir, int size)
-    : Bug(id, position, dir, size){}
-
-Crawler::~Crawler(){}
-
 void Crawler::move() {
     // Move by 1 unit in the current direction
     switch (direction) {

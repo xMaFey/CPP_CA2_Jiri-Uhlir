@@ -29,10 +29,6 @@ Board::~Board(){
     bugs.clear();
 }
 
-int Board::getSize() const{
-    return size;
-}
-
 void Board::displayBoard(sf::RenderWindow& window) const{
     //cell size and padding
     const float cellSize = 50.f;
@@ -50,23 +46,10 @@ void Board::displayBoard(sf::RenderWindow& window) const{
             //cell position
             cell.setPosition(i * (cellSize + padding), j * (cellSize + padding));
 
-            //if there is bug on this position draw it
-            if(grid[i][j] != nullptr){
-                //draw bug - CUSTOMIZE IN BUGS CLASS!, only test for now
-                sf::CircleShape bug(cellSize / 2);
-                bug.setFillColor(sf::Color::Red);
-                bug.setPosition(cell.getPosition() + sf::Vector2f(padding, padding));
-                window.draw(bug);
-            }
-
             //draw cell
             window.draw(cell);
         }
     }
-}
-
-void Board::addBug(Bug* bug){
-    bugs.push_back(bug);
 }
 
 void Board::populateBugVector(){
@@ -112,29 +95,6 @@ void Board::populateBugVector(){
         // Read direction as integer
         int directionInt;
         iss >> directionInt;
-
-        // Convert integer to Direction enum
-        Direction bugDirection;
-        switch(directionInt) {
-            case 0:
-                break;
-            case 1:
-                bugDirection = Direction::NORTH;
-                break;
-            case 2:
-                bugDirection = Direction::EAST;
-                break;
-            case 3:
-                bugDirection = Direction::SOUTH;
-                break;
-            case 4:
-                bugDirection = Direction::WEST;
-                break;
-            default:
-                // Handle invalid direction value
-                std::cerr << "Invalid direction value: " << directionInt << std::endl;
-                break;
-        }
 
         //create Bug object base on the bug type
         Bug* bug = nullptr;
