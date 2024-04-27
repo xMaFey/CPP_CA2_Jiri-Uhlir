@@ -18,8 +18,8 @@ int Bug::getSize() const {
     return size;
 }
 
-bool Bug::isAlive() const {
-    return alive;
+void Bug::setSize(int newSize){
+    size = newSize;
 }
 
 const std::list<std::pair<int, int>>& Bug::getPath() const{

@@ -41,6 +41,14 @@ int main() {
     //Populate the bugs vector
     board.populateBugVector();
 
+    //Get a reference to a Bug object (assuming bugs vector is not empty)
+    if(!board.getBugs().empty()){
+        Bug* bugToSetAlive = board.getBugs().front();
+        bugToSetAlive -> setAlive(true);
+    } else{
+        std::cerr << "No bugs found in the board." << std::endl;
+    }
+
     //Display the bugs
     board.displayBugs();
 
@@ -85,6 +93,11 @@ int main() {
     //SFML window
     sf::RenderWindow window(sf::VideoMode(520, 520), "Bug Board");
 
+    sf::Font font;
+    if (!font.loadFromFile("C:/Users/Uzivatel/Desktop/School/Year 2/C++/CA2/Marlboro.ttf")) {
+        std::cerr << "Error loading font" << std::endl;
+    }
+
     //Main loop
     while(window.isOpen()){
         sf::Event event;
@@ -94,28 +107,35 @@ int main() {
             }
 
             //Check for mouse click
-            if(event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left){
+            if(event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
                 //move bugs
-                for(Bug* bug : board.getBugs()){
-                    bug -> move();
+                for (Bug *bug: board.getBugs()) {
+                    if(bug->isAlive()) {
 
-                    //display bug details and path history into console
-                    std::cout << "Bug ID: " << bug -> getID() << std::endl;
-                    std::cout << "Type: ";
-                    if(dynamic_cast <const Crawler*>(bug) != nullptr){
-                        std::cout << "Crawler";
-                    } else if(dynamic_cast <const Hopper*>(bug) != nullptr){
-                        std::cout << "Hopper";
+                        bug->move();
+
+                        //Do the bug fights
+                        board.bugFights();
                     }
-                    std::cout << ", Position: (" << bug -> getPosition().first << ", " << bug -> getPosition().second << "), ";
-                    std::cout << "Status: " << (bug -> isAlive() ? "Alive" : "Dead") << std::endl;
-                    std::cout << "Path History: ";
-                    for(const auto& position : bug->getPath()){
-                        std::cout << "(" << position.first << ", " << position.second << ") ";
-                    }
-                    std::cout << std::endl << std::endl;
+
+                        //display bug details and path history into console
+                        std::cout << "Bug ID: " << bug->getID() << std::endl;
+                        std::cout << "Type: ";
+                        if (dynamic_cast <const Crawler *>(bug) != nullptr) {
+                            std::cout << "Crawler";
+                        } else if (dynamic_cast <const Hopper *>(bug) != nullptr) {
+                            std::cout << "Hopper";
+                        }
+                        std::cout << ", Position: (" << bug->getPosition().first << ", " << bug->getPosition().second
+                                  << "), ";
+                        std::cout << "Status: " << (bug->isAlive() ? "Alive" : "Dead") << std::endl;
+                        std::cout << "Path History: ";
+                        for (const auto &position: bug->getPath()) {
+                            std::cout << "(" << position.first << ", " << position.second << ") ";
+                        }
+                        std::cout << std::endl << std::endl;
                 }
-
+                //Display the updated list of bugs
                 printBoardState(board);
             }
         }
@@ -128,6 +148,8 @@ int main() {
 
         //Draw bugs
         for(const Bug* bug : board.getBugs()){
+            if(!bug -> isAlive()) continue; //dont draw dead bugs
+
             sf::CircleShape bugShape(25);
             if(dynamic_cast <const Crawler*>(bug) != nullptr){
                 bugShape.setFillColor(sf::Color::Green);
@@ -138,6 +160,25 @@ int main() {
             std::pair<int, int> position = bug -> getPosition();
             bugShape.setPosition(position.first * 52, position.second * 52);
             window.draw(bugShape);
+
+
+            //calc the center of the circle
+            sf::Vector2f circleCenter = bugShape.getPosition() + sf::Vector2f(bugShape.getRadius(), bugShape.getRadius());
+
+            //draw the size on bug
+            sf::Text text;
+            text.setFont(font);
+            text.setString(std::to_string(bug -> getSize()));
+            text.setCharacterSize(35);
+            text.setFillColor(sf::Color::Black);
+            text.setStyle(sf::Text::Bold);
+
+            //calc position of the text
+            sf::FloatRect textBounds = text.getLocalBounds();
+            text.setOrigin(textBounds.left + textBounds.width / 2.0f, textBounds.top + textBounds.height / 2.0f);
+            text.setPosition(circleCenter);
+
+            window.draw(text);
         }
 
         //display window contents
@@ -163,10 +204,13 @@ void printBoardState(const Board& board) {
 
             // Iterate over bugs to check if any bug is in this cell
             for (const Bug* bug : board.getBugs()) {
-                std::pair<int, int> bugPosition = bug->getPosition();
-                if (bugPosition.first == x && bugPosition.second == y) {
-                    std::cout << (dynamic_cast<const Crawler*>(bug) != nullptr ? "Crawler " : "Hopper ") << bug->getID() << ", ";
-                    isEmpty = false;
+                if(bug -> isAlive()){
+                    std::pair<int, int> bugPosition = bug->getPosition();
+                    if (bugPosition.first == x && bugPosition.second == y) {
+                        std::cout << (dynamic_cast<const Crawler *>(bug) != nullptr ? "Crawler " : "Hopper ")
+                                  << bug->getID() << ", ";
+                        isEmpty = false;
+                    }
                 }
             }
 

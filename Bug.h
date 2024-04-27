@@ -30,7 +30,14 @@ public:
     int getID() const;
     std::pair<int, int> getPosition() const;
     int getSize() const;
-    bool isAlive() const;
+    void setSize(int newSize);
+
+    bool isAlive() const{
+        return alive;
+    }
+
+    void setAlive(bool alive);
+
     const std::list<std::pair<int,int>>& getPath() const;
     std::string getDirectionAsString() const;
 

@@ -19,12 +19,13 @@ public:
     Board();
     ~Board();
 
-
     void displayBoard(sf::RenderWindow& window) const;
 
     void populateBugVector();
     void displayBugs() const;
     const std::vector<Bug*>& getBugs() const;
+
+    void bugFights();
 };
 
 

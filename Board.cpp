@@ -7,7 +7,20 @@
 #include <fstream>
 #include <sstream>
 #include <string>
+#include <unordered_map>
+#include <algorithm>
+#include <utility>
+#include <functional>
 
+//For eating bugs (found on internet)
+namespace std{
+    template <>
+    struct hash<pair<int, int>>{
+        size_t operator()(const pair<int, int>& p) const{
+            return hash<int>()(p.first) ^ hash<int>()(p.second);
+        }
+    };
+}
 
 Board::Board(){
     //initialize the bug board with nullptrs
@@ -147,4 +160,37 @@ void Board::displayBugs() const{
 
 const std::vector<Bug*>& Board::getBugs() const{
     return bugs;
+}
+
+void Bug::setAlive(bool alive){
+    this -> alive = alive;
+}
+
+void Board::bugFights(){
+    //Create map to group bugs by their positions
+    std::unordered_map<std::pair<int, int>, std::vector<Bug*>> bugGroups;
+
+    //Group bugs by their positions
+    for(Bug* bug : bugs){
+        std::pair<int, int> position = bug -> getPosition();
+        bugGroups[position].push_back(bug);
+    }
+
+    //Iterate through each group of bugs in the same position
+    for(auto& group : bugGroups){
+        std::vector<Bug*>& bugsInSamePosition = group.second;
+
+        //Find the largest bug
+        auto maxBug = std::max_element(bugsInSamePosition.begin(), bugsInSamePosition.end(), [](Bug* bug1, Bug* bug2){
+            return bug1 -> getSize() < bug2 -> getSize();
+        });
+
+        //Mark dead bugs as dead and update size
+        for(Bug * bug : bugsInSamePosition){
+            if(bug != *maxBug && bug -> isAlive()){
+                bug -> setAlive(false);
+                (*maxBug) -> setSize((*maxBug) -> getSize() + bug -> getSize());
+            }
+        }
+    }
 }
