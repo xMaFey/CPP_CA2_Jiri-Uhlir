@@ -1,7 +1,9 @@
 Feature 3 is in the comments but it is working
+
 I am missing last 3 functions of the CA
 
 Links I used as sources:
+
 https://www.youtube.com/watch?v=OqdE4ulgHA4&t=214s&ab_channel=MikeShah
 https://www.youtube.com/watch?v=ru_u9N7jydU&t=3s&ab_channel=OttoBotCode
 https://www.youtube.com/watch?v=k2UZRwAOv6s&t=152s&ab_channel=OttoBotCode
